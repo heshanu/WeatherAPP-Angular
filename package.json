@@ -1,6 +1,6 @@
 {
   "name": "weather-app",
-  "homepage": "http://heshanu.github.io/WeatherAPP-Angular.git",
+  "homepage": "https://github.com/heshanu/WeatherAPP-Angular.git",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
