@@ -1,12 +1,15 @@
 {
   "name": "weather-app",
+  "homepage": "http://heshanu.github.io/WeatherAPP-Angular.git",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "private": true,
   "dependencies": {
@@ -28,6 +31,7 @@
     "@angular/cli": "~15.1.2",
     "@angular/compiler-cli": "^15.1.0",
     "@types/jasmine": "~4.3.0",
+    "gh-pages": "^5.0.0",
     "jasmine-core": "~4.5.0",
     "karma": "~6.4.0",
     "karma-chrome-launcher": "~3.1.0",
