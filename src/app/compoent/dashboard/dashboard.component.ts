@@ -16,7 +16,7 @@ export class DashboardComponent {
   loading: boolean = false;
   errorMessage: string = '';
 
-  currentWeather: any[] = [];
+  currentWeather:any='';
 
   location!:any ;
   city: string = '';
@@ -56,19 +56,20 @@ export class DashboardComponent {
   submitResult() {
     if (this.city != '') {
       // console.log(this.city);
+      this.loading = true;
       //const url:string=`http://api.weatherapi.com/v1/forecast.json?key=61701315568d4faaa22163510231303&q=${this.city}&days=0`
       this.weatherService.getRepos(this.city).subscribe(
         (response) => {
           //next() callback
           console.log('response received');
           this.currentWeather = response;
-          Object.values(this.currentWeather);
+          this.loading = false;
         },
         (error) => {
           //error() callback
           console.error('Request failed with error');
           this.errorMessage = error;
-          this.loading = false;
+          this.loading = true;
         },
         () => {
           //complete() callback

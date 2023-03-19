@@ -12,13 +12,21 @@ import { TestComponent } from './compoent/test/test.component';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
 
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner'; 
 @NgModule({
   declarations: [AppComponent, DashboardComponent, TestComponent],
   imports: [
     BrowserModule,
     FormsModule,
     AppRoutingModule,
-    HttpClientModule],
+    HttpClientModule,
+    MatSlideToggleModule,
+    BrowserAnimationsModule,
+    MatProgressSpinnerModule
+  ],
   providers: [],
   bootstrap: [AppComponent],
 })
