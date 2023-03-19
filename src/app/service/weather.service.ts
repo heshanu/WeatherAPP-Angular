@@ -8,6 +8,7 @@ import { Observable } from 'rxjs';
 export class WeatherService {
   //const url:string=`http://api.weatherapi.com/v1/forecast.json?key=61701315568d4faaa22163510231303&q=${this.city}&days=0`
   baseUrl: string = `http://api.weatherapi.com/v1/current.json?key=61701315568d4faaa22163510231303&`;
+  baseUrlThreedays: string = `http://api.weatherapi.com/v1/forecast.json?key=61701315568d4faaa22163510231303&`;
   constructor(private http: HttpClient) {}
 
   public getRepos(city: string): Observable<any> {
@@ -20,6 +21,20 @@ export class WeatherService {
   ): Observable<any> {
     return this.http.get<any>(
       this.baseUrl + 'q=' + latitude + ',' + longtitude + '&days=0'
+    );
+  }
+
+  //
+  public getRepos3days(city: string): Observable<any> {
+    return this.http.get<any>(this.baseUrlThreedays + 'q=' + city + '&days=3');
+  }
+
+  public getCityByCoordinate3days(
+    latitude: string,
+    longtitude: string
+  ): Observable<any> {
+    return this.http.get<any>(
+      this.baseUrlThreedays + 'q=' + latitude + ',' + longtitude + '&days=2'
     );
   }
 }
