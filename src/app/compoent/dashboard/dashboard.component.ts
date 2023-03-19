@@ -16,9 +16,9 @@ export class DashboardComponent {
   loading: boolean = false;
   errorMessage: string = '';
 
-  currentWeather:any='';
+  currentWeather: any = '';
 
-  location!:any ;
+  location!: any;
   city: string = '';
   longtitude: string = '';
   latitude: string = '';
@@ -78,8 +78,29 @@ export class DashboardComponent {
         }
       );
     } else if (this.longtitude != '' && this.latitude != '') {
-      //console.log(this.longtitude);
-      //  console.log(this.latitude);
+      this.loading = true;
+      //const url:string=`http://api.weatherapi.com/v1/forecast.json?key=61701315568d4faaa22163510231303&q=${this.city}&days=0`
+      this.weatherService
+        .getCityByCoordinate(this.latitude, this.longtitude)
+        .subscribe(
+          (response) => {
+            //next() callback
+            console.log('response received');
+            this.currentWeather = response;
+            this.loading = false;
+          },
+          (error) => {
+            //error() callback
+            console.error('Request failed with error');
+            this.errorMessage = error;
+            this.loading = true;
+          },
+          () => {
+            //complete() callback
+            console.error('Request completed'); //This is actually not needed
+            this.loading = false;
+          }
+        );
     } else {
       alert('Please enter the city or coordinate');
     }

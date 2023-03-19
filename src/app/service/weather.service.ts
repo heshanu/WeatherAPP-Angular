@@ -10,7 +10,16 @@ export class WeatherService {
   baseUrl: string = `http://api.weatherapi.com/v1/current.json?key=61701315568d4faaa22163510231303&`;
   constructor(private http: HttpClient) {}
 
-  getRepos(city: string): Observable<any> {
+  public getRepos(city: string): Observable<any> {
     return this.http.get<any>(this.baseUrl + 'q=' + city + '&days=0');
+  }
+
+  public getCityByCoordinate(
+    latitude: string,
+    longtitude: string
+  ): Observable<any> {
+    return this.http.get<any>(
+      this.baseUrl + 'q=' + latitude + ',' + longtitude + '&days=0'
+    );
   }
 }
