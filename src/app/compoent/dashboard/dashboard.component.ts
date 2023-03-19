@@ -18,7 +18,7 @@ export class DashboardComponent {
 
   currentWeather: any[] = [];
 
-  location: string = '';
+  location!:any ;
   city: string = '';
   longtitude: string = '';
   latitude: string = '';
