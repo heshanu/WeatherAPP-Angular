@@ -1,24 +1,28 @@
-import { Component } from '@angular/core';
+import { Component, Output } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { WeatherService } from '../../service/weather.service';
+import { WeeklyWeatherComponent } from './weekly-weather/weekly-weather.component';
+import { WeeklypredictionService } from '../../service/weeklyprediction.service';
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css'],
 })
 export class DashboardComponent {
+  currentWeather: any;
+  current3Weather: any;
+  weeklyWeather: any;
   constructor(
     private http: HttpClient,
-    private weatherService: WeatherService
+    private weatherService: WeatherService,
+    private weeklyWeatherService: WeeklypredictionService
   ) {}
   showCity: boolean = false;
+
   loading: boolean = false;
   errorMessage: string = '';
-
-  currentWeather:any='';
-
-  location!:any ;
+  location!: any;
   city: string = '';
   longtitude: string = '';
   latitude: string = '';
@@ -55,7 +59,6 @@ export class DashboardComponent {
 
   submitResult() {
     if (this.city != '') {
-      // console.log(this.city);
       this.loading = true;
       //const url:string=`http://api.weatherapi.com/v1/forecast.json?key=61701315568d4faaa22163510231303&q=${this.city}&days=0`
       this.weatherService.getRepos(this.city).subscribe(
@@ -77,17 +80,151 @@ export class DashboardComponent {
           this.loading = false;
         }
       );
+
+      //store 3days weather
+      this.weatherService.getRepos3days(this.city).subscribe(
+        (response) => {
+          //next() callback
+          console.log('response received');
+          this.current3Weather = response;
+          this.loading = false;
+        },
+        (error) => {
+          //error() callback
+          console.error('Request failed with error');
+          this.errorMessage = error;
+          this.loading = true;
+        },
+        () => {
+          //complete() callback
+          console.error('Request completed'); //This is actually not needed
+          this.loading = false;
+        }
+      );
     } else if (this.longtitude != '' && this.latitude != '') {
-      //console.log(this.longtitude);
-      //  console.log(this.latitude);
+      this.loading = true;
+      //const url:string=`http://api.weatherapi.com/v1/forecast.json?key=61701315568d4faaa22163510231303&q=${this.city}&days=0`
+      this.weatherService
+        .getCityByCoordinate(this.latitude, this.longtitude)
+        .subscribe(
+          (response) => {
+            //next() callback
+            console.log('response received');
+            this.current3Weather = response;
+            this.loading = false;
+          },
+          (error) => {
+            //error() callback
+            console.error('Request failed with error');
+            this.errorMessage = error;
+            this.loading = true;
+          },
+          () => {
+            //complete() callback
+            console.error('Request completed'); //This is actually not needed
+            this.loading = false;
+          }
+        );
+
+      this.weatherService
+        .getCityByCoordinate3days(this.latitude, this.longtitude)
+        .subscribe(
+          (response) => {
+            //next() callback
+            console.log('response received');
+            this.current3Weather = response;
+            this.loading = false;
+          },
+          (error) => {
+            //error() callback
+            console.error('Request failed with error');
+            this.errorMessage = error;
+            this.loading = true;
+          },
+          () => {
+            //complete() callback
+            console.error('Request completed'); //This is actually not needed
+            this.loading = false;
+          }
+        );
     } else {
       alert('Please enter the city or coordinate');
     }
   }
 
-  /*public getCurrentWeather(): Observable<any> {
-    const url = 'https://reqres.in/api/users?page=1';
+  showWeeklyWeather() {
+    console.log('clcik show week weather weeklyWeather');
 
-    return this.http.get<any>(url);
-  }*/
+    if (this.city != '') {
+      this.loading = true;
+      //const url:string=`http://api.weatherapi.com/v1/forecast.json?key=61701315568d4faaa22163510231303&q=${this.city}&days=0`
+      this.weeklyWeatherService.getWeekCity(this.city).subscribe(
+        (response: any) => {
+          //next() callback
+          console.log('response received');
+          this.weeklyWeather = response;
+          this.loading = false;
+        },
+        (error: any) => {
+          //error() callback
+          console.error('Request failed with error');
+          this.errorMessage = error;
+          this.loading = true;
+        },
+        () => {
+          //complete() callback
+          console.error('Request completed'); //This is actually not needed
+          this.loading = false;
+        }
+      );
+    } else if (this.longtitude != '' && this.latitude != '') {
+      this.loading = true;
+      //const url:string=`http://api.weatherapi.com/v1/forecast.json?key=61701315568d4faaa22163510231303&q=${this.city}&days=0`
+      this.weeklyWeatherService
+        .getWeekCoordinate(this.latitude, this.longtitude)
+        .subscribe(
+          (response: any) => {
+            //next() callback
+            console.log('response received');
+            this.weeklyWeather = response;
+            this.loading = false;
+          },
+          (error: any) => {
+            //error() callback
+            console.error('Request failed with error');
+            this.errorMessage = error;
+            this.loading = true;
+          },
+          () => {
+            //complete() callback
+            console.error('Request completed'); //This is actually not needed
+            this.loading = false;
+          }
+        );
+
+      this.weatherService
+        .getCityByCoordinate3days(this.latitude, this.longtitude)
+        .subscribe(
+          (response) => {
+            //next() callback
+            console.log('response received');
+            this.current3Weather = response;
+            this.loading = false;
+          },
+          (error) => {
+            //error() callback
+            console.error('Request failed with error');
+            this.errorMessage = error;
+            this.loading = true;
+          },
+          () => {
+            //complete() callback
+            console.error('Request completed'); //This is actually not needed
+            this.loading = false;
+          }
+        );
+    } else {
+      alert('Please enter the city or coordinate');
+    }
+  }
 }
