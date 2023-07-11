@@ -1,24 +1,27 @@
-<h1>Angular Router App</h1>
-<!-- This nav gives you links to click, which tells the router which route to use (defined in the routes constant in  AppRoutingModule) -->
-<nav>
-  <ul>
-    <li>
-      <a
-        routerLink="/test"
-        routerLinkActive="active"
-        ariaCurrentWhenActive="page"
-        >test</a
-      >
-    </li>
-    <li>
-      <a
-        routerLink="/"
-        routerLinkActive="active"
-        ariaCurrentWhenActive="page"
-        >home</a
-      >
-    </li>
-  </ul>
-</nav>
-<!-- The routed views render in the <router-outlet>-->
-<router-outlet></router-outlet>
+<div class="bg-blue">
+  <h1 class="text-blue m-16">Weather App Angular</h1>
+  <!-- This nav gives you links to click, which tells the router which route to use (defined in the routes constant in  AppRoutingModule) -->
+  <nav class="m-16">
+    <ul>
+      <!-- <li>
+        <a
+          routerLink="/test"
+          routerLinkActive="active"
+          ariaCurrentWhenActive="page"
+          >test</a
+        >
+      </li> -->
+      <!-- <li>
+        <a
+          routerLink="/"
+          routerLinkActive="active"
+          ariaCurrentWhenActive="page"
+          >home</a
+        >
+      </li> -->
+    </ul>
+  </nav>
+  <!-- The routed views render in the <router-outlet>-->
+  <router-outlet></router-outlet>
+</div>
+

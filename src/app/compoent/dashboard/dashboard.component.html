@@ -1,5 +1,5 @@
 <div class="container">
-  <section class="vh-100">
+  <section class="vh-100" >
     <div class="container py-5 h-100">
       <div class="row d-flex justify-content-center align-items-center h-100">
         <div class="col-md-8 col-lg-6 col-xl-4">
@@ -81,7 +81,7 @@
           </a>
         </div>
 
-        <div class="card shadow-0 border" style="text-align: center">
+        <div class="card shadow-0 border" style="text-align: center"  *ngIf="showWeatherPred">
           <mat-spinner *ngIf="loading"></mat-spinner>
           <div class="card-body p-4">
             <app-oneday-weather
@@ -92,7 +92,7 @@
       </div>
     </div>
   </section>
-  <div class="row">
+  <div class="row" *ngIf="showWeatherPred">
     <div class="column">
       <app-threedays-weather
         [current3Weather]="current3Weather"
