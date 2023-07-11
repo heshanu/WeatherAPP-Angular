@@ -1,1 +1,8 @@
 <p>test works!</p>
+<div *ngFor="let p of productAll">
+  <li>Product name:{{ p.productName }}</li>
+  <li>Product Id:{{ p.productId }}</li>
+  <li>Product Quantity:{{ p.quantity }}</li>
+  <li>Product Currency:{{ p.price | currency }}</li>
+  <hr />
+</div>

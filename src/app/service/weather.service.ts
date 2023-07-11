@@ -23,9 +23,7 @@ export class WeatherService {
       this.baseUrl + 'q=' + latitude + ',' + longtitude + '&days=0'
     );
   }
-
-  //
-  public getRepos3days(city: string): Observable<any> {
+   public getRepos3days(city: string): Observable<any> {
     return this.http.get<any>(this.baseUrlThreedays + 'q=' + city + '&days=3');
   }
 
@@ -36,5 +34,9 @@ export class WeatherService {
     return this.http.get<any>(
       this.baseUrlThreedays + 'q=' + latitude + ',' + longtitude + '&days=2'
     );
+  }
+
+  public getAllProduct():Observable<any>{
+    return this.http.get<any>('http://localhost:8090/api/v1/product/all');
   }
 }
