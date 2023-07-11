@@ -27,6 +27,7 @@ export class DashboardComponent {
   longtitude: string = '';
   latitude: string = '';
   showCoordinate: boolean = false;
+  showWeatherPred:boolean=false;
   public radioButtonResult($event: any) {
     //alert($event.target.value);
     if ($event.target.value == 'city') {
@@ -58,6 +59,7 @@ export class DashboardComponent {
   }
 
   submitResult() {
+    this.showWeatherPred=true;
     if (this.city != '') {
       this.loading = true;
       //const url:string=`http://api.weatherapi.com/v1/forecast.json?key=61701315568d4faaa22163510231303&q=${this.city}&days=0`
